@@ -51,3 +51,4 @@ jobs:
       run: |
         git add .
         git commit -m "Auto-update on push"
+        git push origin master
