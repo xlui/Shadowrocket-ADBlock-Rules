@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from bs4 import BeautifulSoup
+import sys
 import threading
 import time
-import sys
-import requests
 
+import requests
+from bs4 import BeautifulSoup
 
 urls = ['http://alexa.chinaz.com/Global/index.html']
-for i in range(2,21):
-    urls.append('http://alexa.chinaz.com/Global/index_%d.html'%i)
+for i in range(2, 21):
+    urls.append('http://alexa.chinaz.com/Global/index_%d.html' % i)
 
 urls_scan_over = False
 
@@ -30,17 +30,16 @@ class UrlScaner(threading.Thread):
         done_num = 0
 
         while len(urls):
-            html = self.fetchHTML( urls.pop(0) )
+            html = self.fetchHTML(urls.pop(0))
             self.praseHTML(html)
 
             done_num = done_num + 25
-            print('top500 List Got: %d/500'%done_num)
+            print('top500 List Got: %d/500' % done_num)
 
             time.sleep(1)
 
         urls_scan_over = True
         print('top500 List Fetched Over.')
-
 
     def fetchHTML(self, url):
         success = False
@@ -56,11 +55,10 @@ class UrlScaner(threading.Thread):
                 break
 
         if not success:
-            sys.exit('error in request %s\n\treturn code: %d' % (url, r.status_code) )
+            sys.exit('error in request %s\n\treturn code: %d' % (url, r.status_code))
 
         r.encoding = 'utf-8'
         return r.text
-
 
     def praseHTML(self, html):
         soup = BeautifulSoup(html, "lxml")
@@ -111,7 +109,7 @@ class DomainScaner(threading.Thread):
             else:
                 domains_direct.append(domain)
 
-            print('[Doamins Remain: %d]\tProxy %s：%s' % (len(domains), is_proxy, domain) )
+            print('[Doamins Remain: %d]\tProxy %s：%s' % (len(domains), is_proxy, domain))
 
         global scaner_thread_num
         scaner_thread_num -= 1
@@ -138,13 +136,12 @@ now_time = time.strftime("%Y-%m-%d %H:%M:%S")
 file_proxy.write('# top500 proxy list update time: ' + now_time + '\n')
 file_direct.write('# top500 direct list update time: ' + now_time + '\n')
 
-domains_direct = list( set(domains_direct) )
-domains_proxy  = list( set(domains_proxy) )
+domains_direct = list(set(domains_direct))
+domains_proxy = list(set(domains_proxy))
 domains_direct.sort()
 domains_proxy.sort()
 
 for domain in domains_direct:
-    file_direct.write(domain+'\n')
+    file_direct.write(domain + '\n')
 for domain in domains_proxy:
-    file_proxy.write(domain+'\n')
-
+    file_proxy.write(domain + '\n')

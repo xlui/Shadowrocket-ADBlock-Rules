@@ -4,21 +4,6 @@ import re
 import time
 
 
-# confs names in template/ and ../
-# except sr_head and sr_foot
-confs_names = [
-    'sr_top500_banlist_ad',
-    'sr_top500_banlist',
-    'sr_top500_whitelist_ad',
-    'sr_top500_whitelist',
-    'sr_adb',
-    'sr_direct_banad',
-    'sr_proxy_banad',
-    'sr_cnip', 'sr_cnip_ad',
-    'sr_backcn', 'sr_backcn_ad'
-]
-
-
 def getRulesStringFromFile(path, kind):
     file = open(path, 'r', encoding='utf-8')
     contents = file.readlines()
@@ -49,37 +34,31 @@ def getRulesStringFromFile(path, kind):
 str_head = open('template/sr_head.txt', 'r', encoding='utf-8').read()
 str_foot = open('template/sr_foot.txt', 'r', encoding='utf-8').read()
 
-
-# make values
+# mask values
 values = {}
 
 values['build_time'] = time.strftime("%Y-%m-%d %H:%M:%S")
 
-values['top500_proxy']  = getRulesStringFromFile('resultant/top500_proxy.list', 'Proxy')
-values['top500_direct'] = getRulesStringFromFile('resultant/top500_direct.list', 'Direct')
-
+# REJECT
 values['ad'] = getRulesStringFromFile('resultant/ad.list', 'Reject')
+values['manual_reject'] = getRulesStringFromFile('manual/reject.txt', 'Reject')
 
-values['manual_direct'] = getRulesStringFromFile('manual_direct.txt', 'Direct')
-values['manual_proxy']  = getRulesStringFromFile('manual_proxy.txt', 'Proxy')
-values['manual_reject'] = getRulesStringFromFile('manual_reject.txt', 'Reject')
+# DIRECT
+values['top500_direct'] = getRulesStringFromFile('resultant/top500_direct.list', 'Direct')
+values['manual_direct'] = getRulesStringFromFile('manual/direct.txt', 'Direct')
 
-values['gfwlist'] = getRulesStringFromFile('resultant/gfw.list', 'Proxy') \
-                  + getRulesStringFromFile('manual_gfwlist.txt', 'Proxy')
+# PROXY
+values['manual_proxy'] = getRulesStringFromFile('manual/proxy.txt', 'Proxy')
+values['top500_proxy'] = getRulesStringFromFile('resultant/top500_proxy.list', 'Proxy')
 
+# generate conf
+conf_name = 'sr_top500_whitelist_ad'
+template = open(f'template/{conf_name}.txt', 'r', encoding='utf-8').read()
+template = str_head + template + str_foot
+file_output = open('../' + conf_name + '.conf', 'w', encoding='utf-8')
 
-# make confs
-for conf_name in confs_names:
-    file_template = open('template/'+conf_name+'.txt', 'r', encoding='utf-8')
-    template = file_template.read()
+marks = re.findall(r'{{(.+)}}', template)
+for mark in marks:
+    template = template.replace('{{' + mark + '}}', values[mark])
 
-    template = str_head + template + str_foot
-
-    file_output = open('../'+conf_name+'.conf', 'w', encoding='utf-8')
-
-    marks = re.findall(r'{{(.+)}}', template)
-
-    for mark in marks:
-        template = template.replace('{{'+mark+'}}', values[mark])
-
-    file_output.write(template)
+file_output.write(template)
