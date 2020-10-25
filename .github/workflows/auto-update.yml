@@ -40,5 +40,5 @@ jobs:
     - name: Commit
       run: |
         git add .
-        git commit -m "Auto-update on push"
+        git commit -m "Auto-update everyday"
         git push origin master
