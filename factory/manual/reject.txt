@@ -18,6 +18,10 @@ imageplus.baidu.com
 t10.baidu.com
 t11.baidu.com
 t12.baidu.com
+nadvideo2.baidu.com
+pmp-ad.cdn.bcebos.com
+als.baidu.com
+feed-image.baidu.com
 
 # 未知广告 来自#49反馈
 stats.chinaz.com
@@ -212,3 +216,14 @@ kikibt8.xyz
 
 #niconico
 ads.nicovideo.jp
+
+#qq
+mi.gdt.qq.com      
+pp.myapp.com      
+qzonestyle.gtimg.cn
+pgdt.gtimg.cn      
+v.gdt.qq.com
+report.huatuo.qq.com
+
+#脉脉
+open.taou.com
