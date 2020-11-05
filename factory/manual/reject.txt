@@ -224,6 +224,3 @@ qzonestyle.gtimg.cn
 pgdt.gtimg.cn
 v.gdt.qq.com
 report.huatuo.qq.com
-
-#脉脉
-open.taou.com
