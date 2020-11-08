@@ -9,7 +9,7 @@ import re
 import sys
 import time
 
-from factory.util.load_url import load_url
+from .util.load_url import load_url
 
 # 域名白名单
 domain_whitelist = {
