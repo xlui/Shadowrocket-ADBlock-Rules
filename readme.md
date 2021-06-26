@@ -4,9 +4,11 @@ Forked from [https://github.com/h2y/Shadowrocket-ADBlock-Rules](https://github.c
 
 License: [CC BY-SA 4.0](LICENSE)
 
-原规则停止更新，考虑实际使用时还是有些细微需要调整的地方，Fork 了一份自己维护。
+~~原规则停止更新，考虑实际使用时还是有些细微需要调整的地方，Fork 了一份自己维护。~~
 
-此仓库只会维护原规则中 **sr_top500_whitelist_ad.conf** 规则，其他规则不维护。
+~~此仓库只会维护原规则中 **sr_top500_whitelist_ad.conf** 规则，其他规则不维护。~~
+
+**切换到宇宙无敌的 Quantumult X，本仓库停止维护**
 
 ## 规则说明
 
