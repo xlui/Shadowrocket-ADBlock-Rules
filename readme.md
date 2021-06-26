@@ -8,7 +8,7 @@ License: [CC BY-SA 4.0](LICENSE)
 
 ~~此仓库只会维护原规则中 **sr_top500_whitelist_ad.conf** 规则，其他规则不维护。~~
 
-**切换到宇宙无敌的 Quantumult X，本仓库停止维护**
+**切换到宇宙无敌的 Quantumult X，本仓库停止维护。**
 
 ## 规则说明
 
